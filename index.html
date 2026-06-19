@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maicola Doces — Doces caseiros feitos com carinho</title>
+<meta name="description" content="Maicola Doces: brigadeiro, beijinho, bolo de pote e docinhos de festa, feitos em casa. Peça pelo WhatsApp.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8D%AC%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<!--
+  MAICOLA DOCES — site para GitHub Pages
+  ANTES DE PUBLICAR, troque:
+  1. WhatsApp  -> procure "5500000000000" e troque pelo número real (55 + DDD + número, só dígitos)
+  2. Instagram -> procure "maicoladoces" e troque pelo @ real
+  3. Cardápio  -> seção <section id="cardapio">: nomes, descrições e preços
+  4. Rodapé    -> horário de atendimento e área de entrega
+  5. Fotos     -> por padrão o site usa círculos de "doce" feitos em CSS (sem precisar de foto).
+                  Se quiser usar fotos reais, troque o conteúdo de .docinho ou .foto-frame por uma <img>.
+-->
+
+<style>
+  /* ===== TOKENS ===== */
+  :root{
+    --cacau: #3A2113;
+    --cacau-2: #2A1709;
+    --caramelo: #C8793A;
+    --caramelo-2: #E0A868;
+    --beijinho: #FFF6EA;
+    --beijinho-2: #FFFCF6;
+    --morango: #E8A0A0;
+    --goiabada: #9C2E1C;
+    --tinta: #2A1A12;
+    --tinta-suave: #6B4A38;
+    --liner-a: #EDCB7E;
+    --liner-b: #D2A24E;
+    --radius: 20px;
+    --container: 1120px;
+  }
+
+  /* ===== RESET / BASE ===== */
+  *,*::before,*::after{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--beijinho);
+    color:var(--tinta);
+    font-family:'Nunito Sans', sans-serif;
+    font-size:17px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  img,svg{ display:block; max-width:100%; }
+  a{ color:inherit; text-decoration:none; }
+  ul{ margin:0; padding:0; list-style:none; }
+  h1,h2,h3{ font-family:'Fredoka', sans-serif; font-weight:600; margin:0; color:var(--cacau); line-height:1.15; }
+  p{ margin:0; }
+  ::selection{ background:var(--morango); color:var(--cacau); }
+  :focus-visible{ outline:3px solid var(--goiabada); outline-offset:3px; border-radius:4px; }
+
+  .container{ max-width:var(--container); margin:0 auto; padding:0 24px; }
+  .section{ padding:96px 0; }
+  section[id]{ scroll-margin-top:96px; }
+  @media (max-width:640px){ .section{ padding:64px 0; } }
+
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'Nunito Sans', sans-serif; font-weight:800; font-size:13px;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--goiabada);
+    margin-bottom:14px;
+  }
+  .eyebrow::before{
+    content:""; width:7px; height:7px; border-radius:50%; background:var(--goiabada); flex:none;
+  }
+
+  /* ===== BUTTONS ===== */
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    font-family:'Fredoka', sans-serif; font-weight:600; font-size:16px;
+    padding:14px 28px; border-radius:999px; border:2px solid transparent;
+    transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+    cursor:pointer; white-space:nowrap;
+  }
+  .btn-primary{ background:var(--goiabada); color:var(--beijinho-2); box-shadow:0 6px 16px rgba(156,46,28,.35); }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 10px 20px rgba(156,46,28,.4); }
+  .btn-ghost{ background:transparent; border-color:var(--cacau); color:var(--cacau); }
+  .btn-ghost:hover{ background:var(--cacau); color:var(--beijinho-2); }
+  .btn-on-dark{ border-color:var(--beijinho); color:var(--beijinho); }
+  .btn-on-dark:hover{ background:var(--beijinho); color:var(--cacau); }
+
+  /* ===== HEADER ===== */
+  .site-header{
+    position:sticky; top:0; z-index:50;
+    background:var(--cacau);
+    position:relative;
+  }
+  .header-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 24px; position:relative; z-index:2;
+  }
+  .brand{ display:flex; align-items:center; gap:10px; font-family:'Fredoka',sans-serif; font-weight:700; font-size:20px; color:var(--beijinho-2); }
+  .brand span{ color:var(--caramelo-2); }
+  .site-nav{ display:flex; gap:28px; align-items:center; }
+  .site-nav a{ font-family:'Fredoka',sans-serif; font-weight:500; color:var(--beijinho-2); opacity:.9; padding:6px 2px; }
+  .site-nav a:hover{ opacity:1; border-bottom:2px solid var(--caramelo-2); }
+  .nav-cta{ background:var(--caramelo); color:var(--cacau-2)!important; padding:10px 20px; border-radius:999px; font-weight:600; opacity:1!important; border-bottom:none!important; }
+  .nav-cta:hover{ background:var(--caramelo-2); }
+
+  .nav-toggle{ display:none; background:none; border:0; width:40px; height:36px; position:relative; cursor:pointer; padding:0; }
+  .nav-toggle span{ position:absolute; left:6px; right:6px; height:2px; background:var(--beijinho-2); transition:transform .25s, opacity .25s; }
+  .nav-toggle span:nth-child(1){ top:10px; }
+  .nav-toggle span:nth-child(2){ top:17px; }
+  .nav-toggle span:nth-child(3){ top:24px; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2){ opacity:0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+
+  @media (max-width:760px){
+    .nav-toggle{ display:block; }
+    .site-nav{
+      position:absolute; top:100%; left:0; right:0; z-index:1;
+      background:var(--cacau); flex-direction:column; align-items:flex-start;
+      padding:6px 24px 22px; gap:16px; display:none;
+    }
+    .site-nav.open{ display:flex; }
+    .nav-cta{ margin-top:4px; }
+  }
+
+  /* scalloped bottom edge of header (forminha de papel) */
+  .site-header::after{
+    content:""; position:absolute; left:0; right:0; bottom:-15px; height:15px; z-index:1;
+    background-image: radial-gradient(circle at 15px 0, var(--cacau) 15px, transparent 15.5px);
+    background-size:30px 15px; background-repeat:repeat-x;
+  }
+
+  /* ===== DOCINHO (forminha pleated liner + candy) — signature element ===== */
+  .docinho{
+    --c1:#6b4429; --c2:#2a1709;
+    width:72px; height:72px; border-radius:50%;
+    background: repeating-conic-gradient(from 0deg, var(--liner-a) 0deg 15deg, var(--liner-b) 15deg 30deg);
+    display:grid; place-items:center; flex:none;
+    box-shadow:0 6px 14px rgba(42,23,9,.18);
+  }
+  .docinho .miolo{
+    width:62%; height:62%; border-radius:50%;
+    background-image:
+      radial-gradient(circle at 22% 24%, rgba(255,255,255,.4) 0 3px, transparent 4px),
+      radial-gradient(circle at 62% 70%, rgba(0,0,0,.14) 0 2px, transparent 3px),
+      radial-gradient(circle at 35% 30%, var(--c1), var(--c2));
+  }
+  .docinho.mini{ width:40px; height:40px; }
+  .docinho.brand-mark{ width:30px; height:30px; }
+
+  .pote{
+    width:70px; height:82px; border-radius:8px 8px 30px 30px; position:relative; flex:none;
+    background:linear-gradient(to bottom, #fffaf0 0 20%, #f6e3b8 20% 44%, #c98a3e 44% 62%, #d8b06a 62% 100%);
+    box-shadow:0 6px 14px rgba(42,23,9,.18), inset 0 0 0 2px rgba(255,255,255,.5);
+  }
+  .pote::before{
+    content:""; position:absolute; top:-5px; left:-5px; right:-5px; height:11px;
+    background:var(--caramelo-2); border-radius:7px;
+  }
+
+  .mini-cluster{ display:flex; align-items:center; }
+  .mini-cluster .docinho{ margin-left:-14px; border:3px solid var(--beijinho-2); }
+  .mini-cluster .docinho:first-child{ margin-left:0; }
+
+  /* ===== HERO ===== */
+  .hero{ background:var(--beijinho); overflow:hidden; }
+  .hero-inner{ display:grid; grid-template-columns:1.1fr .9fr; gap:48px; align-items:center; }
+  .hero h1{ font-size:44px; margin-bottom:18px; }
+  .hero p.lead{ font-size:18px; color:var(--tinta-suave); max-width:520px; margin-bottom:30px; }
+  .hero-ctas{ display:flex; gap:14px; flex-wrap:wrap; }
+
+  .docinho-cluster{ position:relative; display:flex; justify-content:center; align-items:flex-end; gap:20px; padding:20px; }
+  .docinho-cluster .docinho:nth-child(1){ width:80px; height:80px; }
+  .docinho-cluster .docinho:nth-child(2){ width:112px; height:112px; }
+  .docinho-cluster .docinho:nth-child(3){ width:70px; height:70px; }
+  .docinho-cluster .docinho:nth-child(4){ width:56px; height:56px; }
+
+  @media (prefers-reduced-motion:no-preference){
+    .docinho-cluster .docinho:nth-child(1){ animation:float1 5s ease-in-out infinite; }
+    .docinho-cluster .docinho:nth-child(2){ animation:float2 6s ease-in-out infinite; }
+    .docinho-cluster .docinho:nth-child(3){ animation:float3 5.5s ease-in-out infinite; }
+    .docinho-cluster .docinho:nth-child(4){ animation:float4 4.5s ease-in-out infinite; }
+  }
+  @keyframes float1{ 0%,100%{ transform:translateY(8px) rotate(-4deg); } 50%{ transform:translateY(-2px) rotate(-4deg); } }
+  @keyframes float2{ 0%,100%{ transform:translateY(-10px); } 50%{ transform:translateY(-18px); } }
+  @keyframes float3{ 0%,100%{ transform:translateY(10px) rotate(5deg); } 50%{ transform:translateY(2px) rotate(5deg); } }
+  @keyframes float4{ 0%,100%{ transform:translateY(0) rotate(-8deg); } 50%{ transform:translateY(-10px) rotate(-8deg); } }
+
+  @media (max-width:860px){
+    .hero-inner{ grid-template-columns:1fr; text-align:center; }
+    .hero p.lead{ margin-inline:auto; }
+    .hero-ctas{ justify-content:center; }
+  }
+
+  /* ===== CARDS / GRID ===== */
+  .grid{ display:grid; gap:28px; }
+  .cardapio-grid{ grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); margin-top:48px; }
+
+  .card{
+    background:var(--beijinho-2); border-radius:var(--radius); padding:28px;
+    box-shadow:0 10px 24px rgba(58,33,19,.08); position:relative;
+  }
+  .doce-card .card-visual{ margin-bottom:18px; }
+  .doce-card h3{ font-size:20px; margin-bottom:6px; }
+  .doce-card p{ color:var(--tinta-suave); font-size:15px; margin-bottom:16px; }
+  .price{ font-family:'Fredoka',sans-serif; font-weight:600; color:var(--cacau); font-size:18px; }
+  .price small{ font-family:'Nunito Sans',sans-serif; font-weight:600; color:var(--tinta-suave); font-size:13px; }
+
+  .badge{
+    position:absolute; top:18px; right:18px; font-size:12px; font-weight:800;
+    letter-spacing:.04em; text-transform:uppercase; padding:6px 12px; border-radius:999px;
+    background:var(--goiabada); color:var(--beijinho-2);
+  }
+
+  /* ===== SOBRE ===== */
+  .sobre{ background:var(--beijinho-2); }
+  .sobre-inner{ display:grid; grid-template-columns:.85fr 1.15fr; gap:56px; align-items:center; }
+  .foto-frame{
+    width:230px; height:230px; border-radius:50%; margin:0 auto; position:relative;
+    background:repeating-conic-gradient(from 0deg, var(--liner-a) 0deg 12deg, var(--liner-b) 12deg 24deg);
+    display:grid; place-items:center; box-shadow:0 14px 30px rgba(42,23,9,.2);
+  }
+  .foto-frame .miolo{
+    width:84%; height:84%; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, var(--caramelo-2), var(--caramelo));
+    display:grid; place-items:center;
+    font-family:'Fredoka',sans-serif; font-weight:700; font-size:72px; color:var(--cacau-2);
+  }
+  .tag-pendurada{
+    position:absolute; bottom:-6px; right:6px; background:var(--cacau); color:var(--beijinho-2);
+    font-family:'Fredoka',sans-serif; font-size:13px; font-weight:600; padding:6px 14px;
+    border-radius:8px; transform:rotate(-6deg); box-shadow:0 6px 12px rgba(0,0,0,.2);
+  }
+  .sobre h2{ font-size:32px; margin-bottom:16px; }
+  .sobre p{ color:var(--tinta-suave); margin-bottom:14px; }
+  .sobre .assinatura{ font-family:'Fredoka',sans-serif; color:var(--cacau); font-weight:600; margin-top:18px; }
+
+  @media (max-width:860px){
+    .sobre-inner{ grid-template-columns:1fr; text-align:center; }
+    .sobre p{ max-width:520px; margin-inline:auto; margin-bottom:14px; }
+  }
+
+  /* ===== COMO PEDIR ===== */
+  .steps{ display:grid; grid-template-columns:repeat(3,1fr); gap:32px; margin-top:48px; }
+  .step{ text-align:left; }
+  .step .num{ font-family:'Fredoka',sans-serif; font-size:40px; font-weight:700; color:var(--caramelo); margin-bottom:10px; }
+  .step h3{ font-size:19px; margin-bottom:8px; }
+  .step p{ color:var(--tinta-suave); font-size:15px; }
+  .pedidos-cta{ margin-top:48px; text-align:center; }
+
+  @media (max-width:760px){ .steps{ grid-template-columns:1fr; } }
+
+  /* ===== FOOTER ===== */
+  .site-footer{ background:var(--cacau); color:var(--beijinho-2); padding-top:64px; position:relative; }
+  .site-footer::before{
+    content:""; position:absolute; left:0; right:0; top:-15px; height:15px;
+    background-image: radial-gradient(circle at 15px 15px, var(--cacau) 15px, transparent 15.5px);
+    background-size:30px 15px; background-repeat:repeat-x;
+  }
+  .footer-grid{ display:grid; grid-template-columns:1.2fr 1fr 1fr; gap:40px; padding-bottom:40px; }
+  .footer-brand{ display:flex; align-items:center; gap:10px; font-family:'Fredoka',sans-serif; font-weight:700; font-size:20px; margin-bottom:10px; }
+  .footer-brand span{ color:var(--caramelo-2); }
+  .footer-tagline{ color:#E6D2C2; font-size:15px; max-width:280px; }
+  .footer-col h4{ font-family:'Nunito Sans',sans-serif; font-weight:800; font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--caramelo-2); margin-bottom:14px; }
+  .footer-col a, .footer-col p{ display:block; color:#F3E6D8; font-size:15px; margin-bottom:10px; }
+  .footer-col a:hover{ color:var(--beijinho-2); text-decoration:underline; }
+  .footer-bottom{ border-top:1px solid rgba(255,255,255,.12); padding:20px 0; text-align:center; font-size:13px; color:#C9AE99; }
+
+  @media (max-width:760px){ .footer-grid{ grid-template-columns:1fr; gap:28px; text-align:center; } .footer-brand{ justify-content:center; } .footer-tagline{ margin-inline:auto; } }
+
+  /* ===== WHATSAPP FLUTUANTE ===== */
+  .wa-float{
+    position:fixed; bottom:22px; right:22px; z-index:60;
+    width:58px; height:58px; border-radius:50%; background:var(--goiabada); color:var(--beijinho-2);
+    display:grid; place-items:center; box-shadow:0 6px 16px rgba(0,0,0,.25);
+  }
+  @media (prefers-reduced-motion:no-preference){ .wa-float{ animation:pulse 2.6s ease-in-out infinite; } }
+  @keyframes pulse{ 0%,100%{ box-shadow:0 6px 16px rgba(0,0,0,.25); } 50%{ box-shadow:0 6px 24px rgba(156,46,28,.55); } }
+
+  /* ===== REVEAL ON SCROLL ===== */
+  .reveal{ opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal.in-view{ opacity:1; transform:none; }
+  @media (prefers-reduced-motion:reduce){
+    .reveal{ opacity:1; transform:none; transition:none; }
+    .docinho-cluster .docinho{ animation:none!important; }
+    .wa-float{ animation:none!important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner container">
+    <a class="brand" href="#topo">
+      <span class="docinho brand-mark" aria-hidden="true"><span class="miolo" style="--c1:#6b4429;--c2:#2a1709"></span></span>
+      Maicola <span>Doces</span>
+    </a>
+    <button class="nav-toggle" aria-label="Abrir menu" aria-expanded="false" id="navToggle">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="site-nav" id="siteNav">
+      <a href="#cardapio">Cardápio</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#pedidos">Como pedir</a>
+      <!-- EDITAR: troque 5500000000000 pelo WhatsApp real -->
+      <a class="nav-cta" href="https://wa.me/5500000000000?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20queria%20fazer%20um%20pedido%20de%20doces" target="_blank" rel="noopener">Pedir no Zap</a>
+    </nav>
+  </div>
+</header>
+
+<main id="topo">
+
+  <!-- HERO -->
+  <section class="hero section">
+    <div class="container hero-inner">
+      <div>
+        <span class="eyebrow">Maicola Doces · feito em casa</span>
+        <h1>Brigadeiro, beijinho e companhia, com gosto de receita de família.</h1>
+        <p class="lead">Doces feitos em casa, do jeitinho que festa de aniversário, casamento, chá ou qualquer dia bom merece. Peça pelo WhatsApp e combine retirada ou entrega.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="https://wa.me/5500000000000?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20queria%20fazer%20um%20pedido%20de%20doces" target="_blank" rel="noopener">Pedir pelo WhatsApp</a>
+          <a class="btn btn-ghost" href="#cardapio">Ver cardápio</a>
+        </div>
+      </div>
+      <div class="docinho-cluster" aria-hidden="true">
+        <div class="docinho" style="--c1:#e2a33d;--c2:#a8691b"><span class="miolo"></span></div>
+        <div class="docinho" style="--c1:#fffdf8;--c2:#f3dcae"><span class="miolo"></span></div>
+        <div class="docinho" style="--c1:#6b4429;--c2:#2a1709"><span class="miolo"></span></div>
+        <div class="docinho" style="--c1:#4a2e22;--c2:#160b06"><span class="miolo"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARDÁPIO -->
+  <section class="section" id="cardapio">
+    <div class="container">
+      <span class="eyebrow">Cardápio</span>
+      <h2 style="font-size:32px">Nossos doces</h2>
+
+      <div class="grid cardapio-grid">
+
+        <article class="card doce-card reveal">
+          <span class="badge">Mais pedido</span>
+          <div class="card-visual"><div class="docinho" style="--c1:#6b4429;--c2:#2a1709"><span class="miolo"></span></div></div>
+          <h3>Brigadeiro tradicional</h3>
+          <p>Chocolate de verdade com granulado crocante por fora.</p>
+          <span class="price">R$ 2,50 <small>/ unidade</small></span>
+        </article>
+
+        <article class="card doce-card reveal">
+          <div class="card-visual"><div class="docinho" style="--c1:#fffdf8;--c2:#f3dcae"><span class="miolo"></span></div></div>
+          <h3>Beijinho de coco</h3>
+          <p>Leite condensado com coco fresco ralado.</p>
+          <span class="price">R$ 2,50 <small>/ unidade</small></span>
+        </article>
+
+        <article class="card doce-card reveal">
+          <div class="card-visual"><div class="docinho" style="--c1:#e2a33d;--c2:#a8691b"><span class="miolo"></span></div></div>
+          <h3>Cajuzinho</h3>
+          <p>Amendoim moído, açúcar e bastante capricho.</p>
+          <span class="price">R$ 2,50 <small>/ unidade</small></span>
+        </article>
+
+        <article class="card doce-card reveal">
+          <div class="card-visual"><div class="pote"></div></div>
+          <h3>Bolo de pote</h3>
+          <p>Camadas de bolo, creme e cobertura, servido no potinho.</p>
+          <span class="price">R$ 12,00 <small>/ pote</small></span>
+        </article>
+
+        <article class="card doce-card reveal">
+          <div class="card-visual"><div class="docinho" style="--c1:#4a2e22;--c2:#160b06"><span class="miolo"></span></div></div>
+          <h3>Trufa de chocolate</h3>
+          <p>Casquinha crocante por fora, recheio cremoso por dentro.</p>
+          <span class="price">R$ 4,00 <small>/ unidade</small></span>
+        </article>
+
+        <article class="card doce-card reveal">
+          <span class="badge">Mais pedido</span>
+          <div class="card-visual">
+            <div class="mini-cluster" aria-hidden="true">
+              <div class="docinho mini" style="--c1:#6b4429;--c2:#2a1709"><span class="miolo"></span></div>
+              <div class="docinho mini" style="--c1:#fffdf8;--c2:#f3dcae"><span class="miolo"></span></div>
+              <div class="docinho mini" style="--c1:#e2a33d;--c2:#a8691b"><span class="miolo"></span></div>
+            </div>
+          </div>
+          <h3>Docinhos de festa (mix)</h3>
+          <p>Cento misto pra aniversário, casamento ou chá de bebê.</p>
+          <span class="price">A partir de R$ 130,00 <small>/ 100 un.</small></span>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE -->
+  <section class="section sobre" id="sobre">
+    <div class="container sobre-inner">
+      <div class="reveal">
+        <div class="foto-frame" aria-hidden="true">
+          <div class="miolo">M</div>
+          <span class="tag-pendurada">feito à mão</span>
+        </div>
+        <!-- Quer usar uma foto real? Troque a div .miolo por uma <img src="sua-foto.jpg" style="width:84%;height:84%;border-radius:50%;object-fit:cover"> -->
+      </div>
+      <div class="reveal">
+        <span class="eyebrow">Quem faz</span>
+        <h2>Quem faz os doces</h2>
+        <p>Aqui em casa, doce sempre foi coisa séria. A Maicola Doces começou na cozinha da Maicola, fazendo docinho pra festa de família — e virou pedido de vizinho, depois de amigo de vizinho.</p>
+        <p>Hoje cada brigadeiro ainda é enrolado um a um, com os mesmos ingredientes de sempre. Sem pressa, sem atalho, do jeito que doce caseiro tem que ser.</p>
+        <p class="assinatura">— Maicola</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMO PEDIR -->
+  <section class="section" id="pedidos">
+    <div class="container">
+      <span class="eyebrow">Como pedir</span>
+      <h2 style="font-size:32px">Do pedido ao docinho na mão</h2>
+
+      <div class="steps">
+        <div class="step reveal">
+          <div class="num">1</div>
+          <h3>Escolha os doces</h3>
+          <p>Dá uma olhada no cardápio e separa o que quer levar pra festa (ou pra você mesmo).</p>
+        </div>
+        <div class="step reveal">
+          <div class="num">2</div>
+          <h3>Fale no WhatsApp</h3>
+          <p>Manda mensagem com o pedido, a quantidade e o dia que precisa.</p>
+        </div>
+        <div class="step reveal">
+          <div class="num">3</div>
+          <h3>Combine e receba</h3>
+          <p>A Maicola confirma valor, forma de pagamento e se é retirada ou entrega.</p>
+        </div>
+      </div>
+
+      <div class="pedidos-cta">
+        <a class="btn btn-primary" href="https://wa.me/5500000000000?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20queria%20fazer%20um%20pedido%20de%20doces" target="_blank" rel="noopener">Pedir pelo WhatsApp agora</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <div class="footer-brand">
+        <span class="docinho brand-mark" aria-hidden="true"><span class="miolo" style="--c1:#e2a33d;--c2:#a8691b"></span></span>
+        Maicola <span>Doces</span>
+      </div>
+      <p class="footer-tagline">Doce caseiro, com hora marcada.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Contato</h4>
+      <!-- EDITAR: número e usuário do Instagram -->
+      <a href="https://wa.me/5500000000000" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="https://instagram.com/maicoladoces" target="_blank" rel="noopener">@maicoladoces</a>
+    </div>
+    <div class="footer-col">
+      <h4>Atendimento</h4>
+      <!-- EDITAR: horário e área de entrega reais -->
+      <p>Seg a sáb, 9h às 19h</p>
+      <p>Entrega combinada · retirada no local</p>
+    </div>
+  </div>
+  <div class="footer-bottom">© <span id="year"></span> Maicola Doces. Feito com carinho (e açúcar).</div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/5500000000000?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20queria%20fazer%20um%20pedido%20de%20doces" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+  <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true"><path fill="currentColor" d="M16 3C9 3 3 9 3 16c0 2.4.7 4.7 1.9 6.7L3 29l6.5-1.8A13 13 0 0 0 16 29c7 0 13-6 13-13S23 3 16 3zm0 23.6c-2.1 0-4.1-.6-5.8-1.6l-.4-.2-4 .1.1-3.9-.3-.4A10.6 10.6 0 0 1 16 5.4c5.9 0 10.6 4.7 10.6 10.6S21.9 26.6 16 26.6zm6-7.9c-.3-.2-1.9-1-2.2-1.1-.3-.1-.5-.2-.7.1-.2.3-.8 1.1-1 1.3-.2.2-.4.2-.7.1-1-.4-2-1.1-2.8-2-.7-.8-1.2-1.8-1.4-2.1-.1-.3 0-.5.1-.7.2-.2.4-.5.6-.7.2-.2.2-.4.1-.6-.1-.2-.7-1.6-.9-2.1-.2-.5-.4-.4-.6-.4h-.6c-.2 0-.5.1-.7.3-.2.2-1 1-1 2.4s1 2.8 1.2 3c.2.2 1.9 2.9 4.6 4 2.7 1.1 2.7.7 3.2.7.5 0 1.6-.6 1.8-1.2.2-.6.2-1.1.1-1.2-.1-.1-.3-.2-.6-.4z"/></svg>
+</a>
+
+<script>
+  // Menu mobile
+  const navToggle = document.getElementById('navToggle');
+  const siteNav = document.getElementById('siteNav');
+  navToggle.addEventListener('click', () => {
+    const open = siteNav.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', open);
+  });
+  siteNav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      siteNav.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Ano automático no rodapé
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Animação leve ao rolar a página
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
